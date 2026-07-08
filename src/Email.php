@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bifrost\DataTypes;
+namespace Elavora\Api\DataTypes;
 
 final readonly class Email extends AbstractDataType
 {
