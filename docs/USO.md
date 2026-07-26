@@ -1,47 +1,30 @@
 # Guia de uso
 
-DataType de e-mail para aplicacoes Elavora API.
-
-## Instalacao
-
-```bash
-composer require elavora/api-datatype-email
-```
-
-## Quando usar
-
-- Validar e normalizar valores antes de chegar na regra de negocio.
-- Evitar passar strings soltas entre services, DTOs e persistencia.
-- Reutilizar a mesma validacao em controllers, comandos e testes.
-
-## Exemplo rapido
+`Email` valida o endereco depois de remover espacos externos. O valor armazenado e convertido para minusculas.
 
 ```php
 use Elavora\Api\DataTypes\Email;
 
-$valor = new Email('usuario@example.com');
-$normalizado = $valor->value();
+$email = Email::from('  Usuario@Example.COM  ');
+
+echo $email->value(); // usuario@example.com
 ```
 
-## Principais pontos de entrada
+O pacote nao substitui o dominio e nao altera outras regras de internacionalizacao ou semantica do endereco.
 
-- `Elavora\Api\DataTypes\Email`
+Para verificar uma entrada sem criar uma instancia:
 
-## Dependencias de runtime
+```php
+if (Email::isValid($entrada)) {
+    $email = Email::from($entrada);
+}
+```
 
-- `elavora/api-datatype-core` `^0.1`
+## Validacao do pacote
 
-## Validacao no projeto consumidor
-
-Depois de instalar o pacote, rode os testes da aplicacao consumidora. Para uma verificacao isolada do pacote, use container:
+Execute os comandos a partir da raiz do clone:
 
 ```bash
-docker run --rm -v "${PWD}:/workspace" -w "/workspace/api-datatype-email" composer:2 composer validate --strict --no-check-publish
-docker run --rm -v "${PWD}:/workspace" -w "/workspace/api-datatype-email" composer:2 sh -lc "find . \\( -path ./.git -o -path ./vendor \\) -prune -o -name '*.php' -print0 | xargs -0 -r -n1 php -l"
+docker run --rm -v "${PWD}:/workspace" -w /workspace composer:2 composer update --no-interaction --no-progress --prefer-dist
+docker run --rm -v "${PWD}:/workspace" -w /workspace composer:2 composer check
 ```
-
-## Observacoes
-
-- Mantenha regras de produto fora deste pacote.
-- Prefira configurar extensoes no bootstrap da aplicacao.
-- Instale apenas os modulos que a aplicacao realmente usa.
