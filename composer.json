@@ -5,6 +5,7 @@
   "license": "MIT",
   "require": {
     "php": ">=8.3",
+    "ext-filter": "*",
     "elavora/api-datatype-core": "^1.0"
   },
   "autoload": {
