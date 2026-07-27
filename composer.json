@@ -4,8 +4,9 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": ">=8.1",
-    "elavora/api-datatype-core": "^0.1"
+    "php": ">=8.3",
+    "ext-filter": "*",
+    "elavora/api-datatype-core": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -18,14 +19,17 @@
     }
   },
   "require-dev": {
+    "phpstan/phpstan": "^2.2",
     "phpunit/phpunit": "^10.5 || ^11.0 || ^12.0"
   },
   "scripts": {
-    "lint": "find src tests -name '*.php' -print0 | xargs -0 -n1 php -l",
-    "test": "phpunit -c phpunit.xml",
+    "lint": "@php tools/lint.php",
+    "test": "@php vendor/bin/phpunit -c phpunit.xml",
+    "analyse": "@php vendor/bin/phpstan analyse --no-progress --memory-limit=1G",
     "check": [
       "@lint",
-      "@test"
+      "@test",
+      "@analyse"
     ]
   },
   "config": {
@@ -33,7 +37,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-main": "0.1-dev"
+      "dev-main": "1.0-dev"
     }
   }
 }

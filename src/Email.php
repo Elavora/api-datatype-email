@@ -11,7 +11,8 @@ final readonly class Email extends AbstractDataType
      */
     public static function isValid(mixed $value): bool
     {
-        return is_string($value) && filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
+        return is_string($value)
+            && filter_var(trim($value), FILTER_VALIDATE_EMAIL) !== false;
     }
 
     protected static function normalize(mixed $value): string

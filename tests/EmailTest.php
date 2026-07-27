@@ -11,7 +11,7 @@ final class EmailTest extends TestCase
 {
     public function testValidatesAndNormalizesEmail(): void
     {
-        self::assertSame('team@api.dev', Email::from('TEAM@BIFROST.DEV')->value());
+        self::assertSame('team@bifrost.dev', Email::from('TEAM@BIFROST.DEV')->value());
         self::assertFalse(Email::isValid('invalid'));
     }
 }
