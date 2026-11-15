@@ -19,7 +19,7 @@ final class EmailTest extends TestCase
 
     public function testValidatesAndNormalizesEmail(): void
     {
-        self::assertSame('team@bifrost.dev', new Email('TEAM@BIFROST.DEV')->value());
+        self::assertSame('team@bifrost.dev', (new Email('TEAM@BIFROST.DEV'))->value());
         self::assertFalse(Email::isValid('invalid'));
     }
 
@@ -54,7 +54,7 @@ final class EmailTest extends TestCase
 
     public function testValueIsString(): void
     {
-        self::assertIsString(new Email('Usuario@Example.COM')->value());
+        self::assertIsString((new Email('Usuario@Example.COM'))->value());
     }
 
     /**
