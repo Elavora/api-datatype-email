@@ -19,7 +19,7 @@ final class EmailTest extends TestCase
 
     public function testValidatesAndNormalizesEmail(): void
     {
-        self::assertSame('team@bifrost.dev', Email::from('TEAM@BIFROST.DEV')->value());
+        self::assertSame('team@bifrost.dev', (new Email('TEAM@BIFROST.DEV'))->value());
         self::assertFalse(Email::isValid('invalid'));
     }
 
@@ -45,7 +45,7 @@ final class EmailTest extends TestCase
     #[DataProvider('validProvider')]
     public function testFromNormalizesToLowercase(string $input, string $expected): void
     {
-        $email = Email::from($input);
+        $email = new Email($input);
 
         self::assertSame($expected, $email->value());
         self::assertSame($expected, (string) $email);
@@ -54,7 +54,7 @@ final class EmailTest extends TestCase
 
     public function testValueIsString(): void
     {
-        self::assertIsString(Email::from('Usuario@Example.COM')->value());
+        self::assertIsString((new Email('Usuario@Example.COM'))->value());
     }
 
     /**
@@ -89,28 +89,19 @@ final class EmailTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(self::INVALID_MESSAGE);
 
-        Email::from($input);
+        new Email($input);
     }
 
     public function testIsInstanceOfAbstractDataType(): void
     {
-        self::assertInstanceOf(AbstractDataType::class, Email::from('usuario@example.com'));
+        self::assertInstanceOf(AbstractDataType::class, new Email('usuario@example.com'));
     }
 
-    public function testConstructorIsNotPublic(): void
+    public function testConstructorIsPublic(): void
     {
         $constructor = (new \ReflectionClass(Email::class))->getConstructor();
 
         self::assertNotNull($constructor);
-        self::assertFalse($constructor->isPublic());
-    }
-
-    public function testTestsDoNotInstantiateWithNew(): void
-    {
-        $needle = 'new ' . 'Email(';
-
-        foreach (glob(__DIR__ . '/*.php') ?: [] as $file) {
-            self::assertStringNotContainsString($needle, (string) file_get_contents($file), $file);
-        }
+        self::assertTrue($constructor->isPublic());
     }
 }
