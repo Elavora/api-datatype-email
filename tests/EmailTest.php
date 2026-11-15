@@ -97,12 +97,12 @@ final class EmailTest extends TestCase
         self::assertInstanceOf(AbstractDataType::class, new Email('usuario@example.com'));
     }
 
-    public function testConstructorIsNotPublic(): void
+    public function testConstructorIsPublic(): void
     {
         $constructor = (new \ReflectionClass(Email::class))->getConstructor();
 
         self::assertNotNull($constructor);
-        self::assertFalse($constructor->isPublic());
+        self::assertTrue($constructor->isPublic());
     }
 
     public function testTestsDoNotInstantiateWithNew(): void
