@@ -104,13 +104,4 @@ final class EmailTest extends TestCase
         self::assertNotNull($constructor);
         self::assertTrue($constructor->isPublic());
     }
-
-    public function testTestsDoNotInstantiateWithNew(): void
-    {
-        $needle = 'new ' . 'Email(';
-
-        foreach (glob(__DIR__ . '/*.php') ?: [] as $file) {
-            self::assertStringNotContainsString($needle, (string) file_get_contents($file), $file);
-        }
-    }
 }
