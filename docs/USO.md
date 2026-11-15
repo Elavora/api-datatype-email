@@ -19,7 +19,7 @@ composer require elavora/api-datatype-email
 ```php
 use Elavora\Api\DataTypes\Email;
 
-$email = Email::from('Usuario@Example.COM');
+$email = new Email('Usuario@Example.COM');
 
 $email->value();                          // 'usuario@example.com'
 (string) $email;                          // 'usuario@example.com'
@@ -27,7 +27,7 @@ json_encode($email);                      // '"usuario@example.com"'
 Email::isValid('usuario@example.com');    // true
 ```
 
-O construtor não é público: crie sempre por `Email::from()`.
+O construtor não é público: crie sempre por `new Email()`.
 
 ## Versão e compatibilidade
 
@@ -44,7 +44,7 @@ ou superior.
 
 **Quebra de compatibilidade:** no `elavora/api-datatype-core` 2 o construtor de `AbstractDataType` é
 `final protected`, então `new Email('usuario@example.com')` deixa de funcionar fora da própria classe. Troque por
-`Email::from('usuario@example.com')`. `Email::isValid()` e `value()` continuam iguais.
+`new Email('usuario@example.com')`. `Email::isValid()` e `value()` continuam iguais.
 
 ### `composer.json`
 
@@ -62,7 +62,7 @@ O `composer.json` do pacote deve ter:
 
 ## Criação e entrada inválida
 
-`Elavora\Api\DataTypes\Email::from(mixed $value): static` valida o valor com `isValid()` e devolve um `Email` com o
+`Elavora\Api\DataTypes\new Email(mixed $value): static` valida o valor com `isValid()` e devolve um `Email` com o
 valor normalizado (em minúsculas). Se o valor for inválido, lança `\InvalidArgumentException` com a mensagem
 `Valor invalido para Elavora\Api\DataTypes\Email.`
 
@@ -70,7 +70,7 @@ valor normalizado (em minúsculas). Se o valor for inválido, lança `\InvalidAr
 use Elavora\Api\DataTypes\Email;
 
 try {
-    Email::from('invalid');
+    new Email('invalid');
 } catch (\InvalidArgumentException $e) {
     echo $e->getMessage(); // Valor invalido para Elavora\Api\DataTypes\Email.
 }
@@ -112,7 +112,7 @@ Contraexemplo (comportamento que não vale mais): `new Email('usuario@example.co
 
 ## Dependências de runtime
 
-- `elavora/api-datatype-core` `^2.0`
+- `elavora/api-datatype-core` `^3.0`
 
 ## Validação do pacote
 

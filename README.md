@@ -13,11 +13,11 @@ use Elavora\Api\DataTypes\Email;
 
 Email::isValid('usuario@example.com'); // true
 
-$email = Email::from('Usuario@Example.COM');
+$email = new Email('Usuario@Example.COM');
 $email->value(); // 'usuario@example.com'
 ```
 
-Entrada inválida em `Email::from()` lança `InvalidArgumentException`.
+Entrada inválida em `new Email()` lança `InvalidArgumentException`.
 
 Especificação completa, exemplos e validação local: [docs/USO.md](docs/USO.md).
 
@@ -30,11 +30,11 @@ composer require elavora/api-datatype-email
 Requisitos:
 
 - PHP 8.3 ou superior.
-- `elavora/api-datatype-core` `^2.0` (que traz o `elavora/api-framework` `^2.0`).
+- `elavora/api-datatype-core` `^3.0` (que traz o `elavora/api-framework` `^3.0`).
 
 Versão `1.0`: atualiza o pacote para o `elavora/api-datatype-core` 2.0, que substitui o `^0.1`, e passa a exigir
 PHP 8.3 ou superior. **Quebra:** o construtor deixa de ser público (no core 2 ele é `final protected`),
-então `new Email(...)` não funciona mais; use `Email::from(...)`. `isValid()` e `value()` não mudam.
+então `new Email(...)` não funciona mais; use `new Email(...)`. `isValid()` e `value()` não mudam.
 
 ## Desenvolvimento e testes
 
