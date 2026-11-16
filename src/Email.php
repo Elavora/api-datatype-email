@@ -4,8 +4,25 @@ declare(strict_types=1);
 
 namespace Elavora\Api\DataTypes;
 
-final readonly class Email extends AbstractDataType
+use Elavora\Api\Framework\Contracts\DescribesType;
+
+final readonly class Email extends AbstractDataType implements DescribesType
 {
+    /**
+     * Descreve o tipo no OPTIONS publico da API.
+     *
+     * @return array<string, mixed>
+     */
+    public static function documentedType(): array
+    {
+        return [
+            'type' => 'string',
+            'format' => 'email',
+            'example' => 'nome@exemplo.com',
+            'description' => 'Endereco de e-mail valido. O valor retornado vem em minusculas e sem espacos nas pontas.',
+        ];
+    }
+
     /**
      * Verifica se o valor e um e-mail valido.
      */

@@ -106,6 +106,16 @@ Detalhes que a tabela mostra:
 Contraexemplo (comportamento que não vale mais): `new Email('usuario@example.com')` funcionava no
 `elavora/api-datatype-core` `^0.1` e falha no `^2.0`, porque o construtor é `final protected`.
 
+## Documentação do tipo (OPTIONS)
+
+`Email` implementa `Elavora\Api\Framework\Contracts\DescribesType` e declara, via `documentedType()`, o que o
+OPTIONS público da API mostra para o campo:
+
+- `type`: `string`
+- `format`: `email`
+- `example`: `nome@exemplo.com`
+- `description`: o valor retornado por `value()` vem em minúsculas e sem espaços nas pontas.
+
 ## Principais pontos de entrada
 
 - `Elavora\Api\DataTypes\Email` (`final readonly`, herda de `Elavora\Api\DataTypes\AbstractDataType`)
